@@ -159,7 +159,7 @@ jQuery(document).ready( function(){
 		var rowCount = jQuery('#sub_form_multiple tbody tr').length;
 		var html = '';
 		html += '<tr>';
-		html += '<td><input type="text" name="multiple_name['+rowCount+']" value="" /></td>'; 
+		html += '<td><input type="text" name="multiple_name['+rowCount+']" value="" style="width: 98%;" /></td>'; // mod: width added
 		html += '<td><input type="checkbox" name="multiple_correct['+rowCount+']"  value="yes" /></td>'; 
 		html += '<td><input type="checkbox" name="multiple_delete['+rowCount+']" value="yes" /></td>';
 		html += '</tr>';
