@@ -394,13 +394,15 @@ class Wpsqt_Shortcode {
 
 						if ( $subCorrect === $subNumOfCorrect && $subIncorrect === 0 ){
 							$correct += $questionData["points"];
-							$answerMarked['mark'] = __('correct', 'wp-survey-and-quiz-tool');
+							__('correct', 'wp-survey-and-quiz-tool');
+							$answerMarked['mark'] = 'correct';
 						}
 						else {
 							// TODO Insert ability to set point per answer scores
 
 							$incorrect += $questionData["points"];
-							$answerMarked['mark'] = __('incorrect', 'wp-survey-and-quiz-tool');
+							__('incorrect', 'wp-survey-and-quiz-tool');
+							$answerMarked['mark'] = 'incorrect';
 						}
 					} else {
 							$canAutoMark = false;
@@ -610,7 +612,10 @@ class Wpsqt_Shortcode {
 		}
 
 		if ( $canAutoMark === true ){
-			$_SESSION['wpsqt']['current_score'] = $correctAnswers." correct out of ".$totalPoints;
+			$_SESSION['wpsqt']['current_score'] = sprintf( __("%d correct out of %d", 'wp-survey-and-quiz-tool'), $correctAnswers, $totalPoints );
+			
+			$_SESSION['wpsqt']['correct_answers'] = $correctAnswers;
+			$_SESSION['wpsqt']['total_points'] = $totalPoints;
 		} else {
 			$_SESSION['wpsqt']['current_score'] = __('Quiz can\'t be auto marked', 'wp-survey-and-quiz-tool');
 		}
