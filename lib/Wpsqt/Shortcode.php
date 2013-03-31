@@ -303,7 +303,7 @@ class Wpsqt_Shortcode {
 					// Resume timer
 					$timerVal = $timerVal - $_POST['wpsqt_time_elapsed'];
 				}
-				echo '<div class="timer" style="float: right;"></div>';
+				echo '<div class="timer" style="float: right;">&nbsp;</div>';
 				$timerStrings = array(
 					'timeleft' => __('Time Left:', 'wp-survey-and-quiz-tool'),
 					'mins' => __('minutes and', 'wp-survey-and-quiz-tool'),
