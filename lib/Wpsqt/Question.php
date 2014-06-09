@@ -94,7 +94,7 @@ abstract class Wpsqt_Question {
 			ob_start();
 			extract($this->_questionVars);
 			require $this->_formView;
-			self::$_called[$this->_id] = true;
+			self::$_called[$this::$_id] = true;
 			return ob_get_clean();
 		}
 		
