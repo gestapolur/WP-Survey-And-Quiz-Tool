@@ -16,7 +16,7 @@ class Wpsqt_Question_Multiple extends Wpsqt_Question {
 		global $wpdb;
 		
 		$this->_questionVars['answers'] = array( array( "text" => false, "correct" => false) );									
-		$this->_id = "multiple";										
+		$this::$_id = "multiple";										
 		$this->_formView = WPSQT_DIR."pages/admin/forms/question.multiple.php";
 		$this->_displayView = WPSQT_DIR."pages/site/questions/multiple.php";
 	

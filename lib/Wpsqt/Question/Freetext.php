@@ -15,7 +15,7 @@ class Wpsqt_Question_Freetext extends Wpsqt_Question {
 	public function __construct( array $value = array() ){
 		
 		$this->_questionVars = $value;
-		$this->_id = "freetext";
+		$this::$_id = "freetext";
 		$this->_formView = WPSQT_DIR."pages/admin/forms/question.freetext.php";
 		$this->_displayView = WPSQT_DIR."pages/site/questions/textarea.php";
 		

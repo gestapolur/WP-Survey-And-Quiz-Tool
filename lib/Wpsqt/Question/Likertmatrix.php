@@ -13,7 +13,7 @@ class Wpsqt_Question_Likertmatrix extends Wpsqt_Question {
 
 	public function __construct(array $values = array()){
 										
-		$this->_id = "likertmatrix";										
+		$this::$_id = "likertmatrix";										
 		$this->_questionVars['answers'] = array('text' => false);
 		$this->_formView = WPSQT_DIR."pages/admin/forms/question.likertmatrix.php";
 		$this->_displayView = WPSQT_DIR."pages/site/questions/likertmatrix.php";

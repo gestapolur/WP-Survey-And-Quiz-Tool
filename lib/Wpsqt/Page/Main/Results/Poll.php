@@ -13,7 +13,7 @@ class Wpsqt_Page_Main_Results_Poll extends Wpsqt_Page_Main_Results {
 		$this->_pageView = 'admin/poll/result.php';
 	}
 
-	public function displayResults($pollId) {
+	public static function displayResults($pollId) {
 		global $wpdb;
 
 		$results = $wpdb->get_row(
