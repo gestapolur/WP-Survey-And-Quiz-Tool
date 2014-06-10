@@ -34,18 +34,16 @@ class Wpsqt_Page_Main_Results_Poll extends Wpsqt_Page_Main_Results {
 				if (!empty($question['answers']) && is_array($question['answers'])) {
 					switch ($question['type']){
 						case 'Likert Matrix':
-							$total = array(0,0,0,0,0);
+							$total = array();
 							foreach($question['answers'] as $answer_name => $values) {
 								//TODO: Look up this other
 								if ($answer_name == 'other') continue;
 								$answers_display[$answer_name] = array();
-								$i = 0;
+								$total[$answer_name] =0;
 								foreach ($values as $value){
-									$answers_display[$answer_name][$i] = $value['count'];
-									$total[$i] += $value['count'];
-									$i++;
+									$answers_display[$answer_name][] = $value['count'];
+									$total[$answer_name] += $value['count'];
 								}
-								
 							}
 							break;
 						case 'Likert':
@@ -107,15 +105,13 @@ class Wpsqt_Page_Main_Results_Poll extends Wpsqt_Page_Main_Results {
 					if ($question['type'] == 'Likert Matrix'){
 						$porcentage = array();
 						echo '<td>';
-						$i = 0;
 						foreach ($count as $c){
 							echo $c.'|';
-							$porcentage[] = $total[$i] ? round($c / $total[$i] * 100, 2) : 0;
-							$i++;
+							$porcentage[] = $total[$name] ? round($c / $total[$name] * 100, 2) : 0;
 						}
 						echo '</td>';
 
-						echo '<td>'.implode('%|', $porcentage).'</td>';
+						echo '<td>'.implode('%|', $porcentage).'%</td>';
 					}else{
 						$percentage = round($count / $total * 100, 2);
 						echo '<td>'.$count.'</td>';
