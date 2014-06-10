@@ -22,21 +22,21 @@ if ($sectionKey == 0) {
 	$q_number = 1;
 }
 
-?>
-<?php if($_SESSION['wpsqt']['current_step'] != 0 && isset($_SESSION['wpsqt'][$quizName]['details']['save_resume']) && $_SESSION['wpsqt'][$quizName]['details']['save_resume'] == 'yes') { ?>
-	<form method="post" action="<?php echo esc_url($url); ?>" class="wpsqt-save-form" style="float: right;">
-		<input type="submit" name="wpsqt-save-state" value="Save and quit" />
-		<input type="hidden" name="step" value="<?php echo ( $_SESSION['wpsqt']['current_step']+1); ?>">
-	</form>
-<?php } ?>
-
-<?php
 if (isset($_POST['wpsqt_time_elapsed'])) {
 	$time_elapsed = $_POST['wpsqt_time_elapsed'];
 } else {
 	$time_elapsed = 0;
 }
 ?>
+
+<?php if($_SESSION['wpsqt']['current_step'] != 0 && isset($_SESSION['wpsqt'][$quizName]['details']['save_resume']) && $_SESSION['wpsqt'][$quizName]['details']['save_resume'] == 'yes') { ?>
+	<form method="post" action="<?php echo esc_url($url); ?>" class="wpsqt-save-form" style="float: right;">
+		<input type="submit" name="wpsqt-save-state" value="Save and quit" />
+		<input type="hidden" name="step" value="<?php echo ( $_SESSION['wpsqt']['current_step']+1); ?>">
+		<input type="hidden" name="wpsqt_time_elapsed" value="<?php echo $time_elapsed; ?>" class="wpsqt_time_elapsed" />
+	</form>
+<?php } ?>
+
 <form method="post" action="<?php echo esc_url($url); ?>">
 	<input type="hidden" name="wpsqt_nonce" value="<?php echo WPSQT_NONCE_CURRENT; ?>" />
 	<input type="hidden" name="step" value="<?php echo ( $_SESSION['wpsqt']['current_step']+1); ?>" />
