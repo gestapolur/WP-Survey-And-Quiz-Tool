@@ -115,7 +115,7 @@ class Wpsqt_Page_Main_Results_Poll extends Wpsqt_Page_Main_Results {
 						}
 						echo '</td>';
 
-						echo '<td>'.implode('|', $porcentage).'</td>';
+						echo '<td>'.implode('%|', $porcentage).'</td>';
 					}else{
 						$percentage = round($count / $total * 100, 2);
 						echo '<td>'.$count.'</td>';
