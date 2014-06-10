@@ -154,6 +154,16 @@ function wpsqt_main_install(){
 				  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 				  PRIMARY KEY (`id`)
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
+
+	$wpdb->query("CREATE TABLE IF NOT EXISTS `".WPSQT_TABLE_QUIZ_STATE."` (
+		  		  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+				  `uid` mediumtext,
+			  	  `answers` text,
+				  `post` text,
+				  `quiz_id` int(11) DEFAULT NULL,
+				  `current_section` int(11) DEFAULT NULL,
+					  PRIMARY KEY (`id`)
+				  ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;");
 }
 if (is_admin()){
 	if (is_multisite() && get_option('wpsqt_manual') != 1) {
