@@ -145,8 +145,20 @@ class Wpsqt_Tokens {
 		$this->setTokenValue('SCORE_COMPETENT', (isset($_SESSION['wpsqt'][$quizName]['details']['pass_mark']) && $_SESSION['wpsqt'][$quizName]['details']['pass_mark'] > (int)rtrim($percentage, "%")) ? 'Not yet competent' : 'Competent');
 
 		if (isset($_SESSION['wpsqt']['result_id'])) {
-			$this->setTokenValue('RESULT_URL'  , WPSQT_URL_MAIN."&section=results&subsection=mark&id=".$_SESSION['wpsqt']['item_id']."&resultid=".$_SESSION['wpsqt']['result_id'] );
-			$this->setTokenValue('RESULT_VIEW_URL'  , WPSQT_URL_MAIN."&section=results&subsection=view&id=".$_SESSION['wpsqt']['item_id']."&resultid=".$_SESSION['wpsqt']['result_id'] );
+			switch ($_SESSION['wpsqt']['current_type']){
+				case 'quiz':
+					$this->setTokenValue('RESULT_URL'  , WPSQT_URL_MAIN."&amp;section=results&subsection=mark&id=".$_SESSION['wpsqt']['item_id']."&resultid=".$_SESSION['wpsqt']['result_id'] );
+					$this->setTokenValue('RESULT_VIEW_URL'  , WPSQT_URL_MAIN."&amp;section=results&subsection=view&id=".$_SESSION['wpsqt']['item_id']."&resultid=".$_SESSION['wpsqt']['result_id'] );
+					break;
+				case 'survey':
+					$this->setTokenValue('RESULT_URL'  , WPSQT_URL_MAIN."&amp;section=results&subsection=survey&id=".$_SESSION['wpsqt']['item_id']."&resultid=".$_SESSION['wpsqt']['result_id'] );
+					$this->setTokenValue('RESULT_VIEW_URL'  , WPSQT_URL_MAIN."&amp;section=results&subsection=total&id=".$_SESSION['wpsqt']['item_id']."&resultid=".$_SESSION['wpsqt']['result_id'] );
+					break;
+				default:
+					$this->setTokenValue('RESULT_URL'  , WPSQT_URL_MAIN."&amp;section=results&subsection=mark&id=".$_SESSION['wpsqt']['item_id']."&resultid=".$_SESSION['wpsqt']['result_id'] );
+					$this->setTokenValue('RESULT_VIEW_URL'  , WPSQT_URL_MAIN."&amp;&section=results&subsection=view&id=".$_SESSION['wpsqt']['item_id']."&resultid=".$_SESSION['wpsqt']['result_id'] );
+					break;
+			}
 		}
 
 		$this->setTokenValue('USER_EMAIL'  , ( isset($_SESSION['wpsqt'][$quizName]['person']['email']) ) ? $_SESSION['wpsqt'][$quizName]['person']['email'] : '');
