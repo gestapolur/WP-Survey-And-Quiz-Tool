@@ -27,13 +27,41 @@ class Wpsqt_Page_Main_Results_Poll extends Wpsqt_Page_Main_Results {
 			echo 'There are no results for this poll yet';
 			return;
 		}
-
+		
 		foreach ($sections as $section) {
 			foreach ($section['questions'] as $question) {
-				$total = 0;
+				$answers_display = array();
 				if (!empty($question['answers']) && is_array($question['answers'])) {
-					foreach($question['answers'] as $answer) {
-						$total += $answer['count'];
+					switch ($question['type']){
+						case 'Likert Matrix':
+							$total = array(0,0,0,0,0);
+							foreach($question['answers'] as $answer_name => $values) {
+								//TODO: Look up this other
+								if ($answer_name == 'other') continue;
+								$answers_display[$answer_name] = array();
+								$i = 0;
+								foreach ($values as $value){
+									$answers_display[$answer_name][$i] = $value['count'];
+									$total[$i] += $value['count'];
+									$i++;
+								}
+								
+							}
+							break;
+						case 'Likert':
+							$total = 0;
+							foreach($question['answers'] as $answer_name => $values) {
+								$answers_display[$answer_name] = $values['count'];
+								$total += $values['count'];
+							}
+							break;
+						default:
+							$total = 0;
+							foreach($question['answers'] as $answer) {
+								$answers_display[$answer['text']] = $answer['count'];
+								$total += $answer['count'];
+							}
+							break;
 					}
 				}
 				echo '<h3>'.$question['name'].'</h3>';
@@ -46,8 +74,22 @@ class Wpsqt_Page_Main_Results_Poll extends Wpsqt_Page_Main_Results {
 				<thead>
 					<tr>
 						<th class="manage-column column-title" scope="col"><?php _e('Answer', 'wp-survey-and-quiz-tool'); ?></th>
-						<th scope="col" width="75"><?php _e('Votes', 'wp-survey-and-quiz-tool'); ?></th>
-						<th scope="col" width="90"><?php _e('Percentage', 'wp-survey-and-quiz-tool'); ?></th>
+						<th scope="col" width="75"><?php _e('Votes', 'wp-survey-and-quiz-tool'); ?>
+						
+						<?php 
+							//TODO: display this information nicer
+							if ($question['type'] == 'Likert Matrix'){
+								echo '<br/>1|2|3|4|5<br/>';
+							}
+						?>
+						</th>
+						<th scope="col" width="90"><?php _e('Percentage', 'wp-survey-and-quiz-tool'); ?>
+						<?php 
+							if ($question['type'] == 'Likert Matrix'){
+								echo '<br/>1|2|3|4|5<br/>';
+							}
+						?>
+						</th>
 					</tr>			
 				</thead>
 				<tfoot>
@@ -59,12 +101,26 @@ class Wpsqt_Page_Main_Results_Poll extends Wpsqt_Page_Main_Results {
 				</tfoot>
 				<tbody>
 				<?php
-				foreach ($question['answers'] as $answer) {
-					$percentage = round($answer['count'] / $total * 100, 2);
+				foreach ($answers_display as $name => $count) {
 					echo '<tr>';
-						echo '<td>'.$answer['text'].'</td>';
-						echo '<td>'.$answer['count'].'</td>';
+					echo '<td>'.$name.'</td>'; 
+					if ($question['type'] == 'Likert Matrix'){
+						$porcentage = array();
+						echo '<td>';
+						$i = 0;
+						foreach ($count as $c){
+							echo $c.'|';
+							$porcentage[] = $total[$i] ? round($c / $total[$i] * 100, 2) : 0;
+							$i++;
+						}
+						echo '</td>';
+
+						echo '<td>'.implode('|', $porcentage).'</td>';
+					}else{
+						$percentage = round($count / $total * 100, 2);
+						echo '<td>'.$count.'</td>';
 						echo '<td>'.$percentage.'%</td>';
+					}
 					echo '</tr>';
 				}
 				?>
