@@ -32,8 +32,6 @@
 		$rawResult['sections'] = unserialize($rawResult['sections']);
 		$rawResult['person'] = unserialize($rawResult['person']);
 		
-		
-		
 		if ( $_SERVER['REQUEST_METHOD'] != "POST" ) {
 		
 			$this->_pageVars['result'] = $rawResult;
@@ -62,34 +60,35 @@
 		    $this->_pageVars['timeTaken'] = $timeTaken;
 		} else {
 			
-			$overallMark = (int)$_POST['overall_mark'];	
-			$totalMark = (int)$_POST['total_mark'];
+			$currentPoints = (int)$_POST['overall_mark'];	
+			$totalPoints = (int)$_POST['total_mark'];
 			foreach ( $rawResult['sections'] as $sectionKey => $section ){
-			
 				foreach ( $section['questions'] as $questionKey => $question ){
-				
 					if ( isset($_POST['mark'][$questionKey]) ){					
 						$rawResult['sections'][$sectionKey]['questions'][$questionKey]['mark'] = (int)$_POST['mark'][$questionKey];
+						$currentPoints += (int)$_POST['mark'][$questionKey];
 					}
 					if ( isset($_POST['comment'][$questionKey]) ){
 						$rawResult['sections'][$sectionKey]['questions'][$questionKey]['comment'] = $_POST['comment'][$questionKey];
 					}
 				}
-			
 			}
-			/*
-$wpdb->query( 
-				$wpdb->prepare('UPDATE '.WPSQT_TABLE_RESULTS.' SET sections=%s,status=%s,mark=%d,total=%d WHERE id = %d', 
-							array( serialize($rawResult['sections']),$_GET['status'],$overallMark,$totalMark,$_GET['resultid']) ) 
-						);
-*/
+			$percentage = ($currentPoints / $totalPoints) * 100;
+			
+			$pass_fail = 0;
+			$quiz = $wpdb->get_row($wpdb->prepare("SELECT * FROM `".WPSQT_TABLE_QUIZ_SURVEYS."` WHERE id = %d", array($rawResult['item_id'])),ARRAY_A);
+			$quiz_settings = unserialize($quiz['settings']);
+			if($percentage >= $quiz_settings['pass_mark']){
+				$pass_fail = 1;
+			}
+			
 			$ser = serialize($rawResult['sections']);
-			$ser = mysql_escape_string($ser);
-			$query = 'UPDATE '.WPSQT_TABLE_RESULTS.' SET status="'.$_POST['status'].'",sections="'.$ser.'" WHERE id="'.$_GET['resultid'].'"';
-			$wpdb->query($query);
-			$this->redirect(WPSQT_URL_MAIN."&section=results".
-							"&subsection=quiz&id=".
-							$_GET['id']."&marked=true");			
+			$ser = mysql_real_escape_string($ser);
+			$wpdb->query( 
+				$wpdb->prepare('UPDATE '.WPSQT_TABLE_RESULTS.' SET sections=%s,status=%s,score=%d,total=%d,percentage=%d,pass=%d WHERE id = %d', 
+							array( serialize($ser),$_POST['status'],$currentPoints,$totalPoints,$percentage,$pass_fail,$_GET['resultid']) ) 
+						);
+			$this->redirect(WPSQT_URL_MAIN."&section=results"."&subsection=quiz&id=".$_GET['id']."&marked=true");			
 		}
 			
 	}

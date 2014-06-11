@@ -38,6 +38,10 @@ if ( isset($_GET['id']) ){
 		$subsection = $_GET['subsection'];
 	}
 	
+	if ($subsection == 'mark'){
+		$subsection = 'quiz';
+	}
+
 	?>
 	<div>
 		<ul class="subsubsub">
