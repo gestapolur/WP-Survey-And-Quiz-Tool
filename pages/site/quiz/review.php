@@ -17,34 +17,37 @@ foreach ( $_SESSION['wpsqt'][$quizName]['sections'] as $section ){ ?>
 			}
 				foreach ($section['questions'] as $questionKey => $questionArray){ 
 					$questionId = $questionArray['id'];
-				?>
-					
-				<h4><?php print stripslashes($questionArray['name']); ?></h4>
-				<?php if ( ucfirst($questionArray['type']) == 'Multiple' 
-						|| ucfirst($questionArray['type']) == 'Single'  ){
-						if ( isset($section['answers'][$questionId]['mark']) 
-						  && $section['answers'][$questionId]['mark'] == 'correct' ){
+					if ( ucfirst($questionArray['type']) == 'Multiple' || ucfirst($questionArray['type']) == 'Single'  ){
+						$correct = isset($section['answers'][$questionId]['mark']) && $section['answers'][$questionId]['mark'] == 'correct';
+						if ( $correct){
 							$currentPoints++;
 							$hardPoints++;
 						}
 						$totalPoints++;	
-					?>				
-					<b><u><?php _e('Mark', 'wp-survey-and-quiz-tool'); ?></u></b> - <?php if (isset($section['answers'][$questionId]['mark'])) { echo $section['answers'][$questionId]['mark']; } else { echo 'Incorrect'; } ?><br />
-					<b><u><?php _e('Answers', 'wp-survey-and-quiz-tool'); ?></u></b>
-					<p class="answer_given">
-						<ol>
-							<?php foreach ($questionArray['answers'] as $answerKey => $answer){ ?>
-								  <li><font color="<?php echo ( $answer['correct'] != 'yes' ) ?  (isset($section['answers'][$questionId]['given']) &&  in_array($answerKey, $section['answers'][$questionId]['given']) ) ? '#FF0000' :  '#000000' : '#00FF00' ; ?>"><?php echo esc_html(stripslashes($answer['text'])); ?></font><?php if (isset($section['answers'][$questionId]['given']) && in_array($answerKey, $section['answers'][$questionId]['given']) ){ ?> - Given<?php }?></li>
-							<?php } ?>
-						</ol>
-					</p>
-					<?php if (isset($questionArray['explanation'])) { 
+						if ($correct){
+							$color = '009900';
+							$symbol = '&#10004';
+						}else{
+							$color = 'FF0000';
+							$symbol = '&#10006;';
+						}
+					?>
 						
-						// replace the tokens
-						$explanation = $objTokens->doReplacement( $questionArray['explanation'] );
-						?>
-						<p class="wpsqt-answer-explanation"><?php echo $explanation; ?></p>
-					<?php } ?>
+					<h4 style="color: #<?php echo $color;?>;"><?php print stripslashes($questionArray['name']); ?> <?php echo $symbol; ?></h4>
+						<p class="answer_given">
+							<ol>
+								<?php foreach ($questionArray['answers'] as $answerKey => $answer){ ?>
+									  <li><font color="<?php echo ( $answer['correct'] != 'yes' ) ?  (isset($section['answers'][$questionId]['given']) &&  in_array($answerKey, $section['answers'][$questionId]['given']) ) ? '#FF0000' :  '#000000' : '#009900' ; ?>"><?php echo esc_html(stripslashes($answer['text'])); ?></font><?php if (isset($section['answers'][$questionId]['given']) && in_array($answerKey, $section['answers'][$questionId]['given']) ){ ?> - Given<?php }?></li>
+								<?php } ?>
+							</ol>
+						</p>
+						<?php if (isset($questionArray['explanation'])) { 
+							
+							// replace the tokens
+							$explanation = $objTokens->doReplacement( $questionArray['explanation'] );
+							?>
+							<p class="wpsqt-answer-explanation"><?php echo $explanation; ?></p>
+						<?php } ?>
 				<?php } else { 
 					?>				
 					<b><u><?php _e('Answer Given', 'wp-survey-and-quiz-tool'); ?></u></b>
