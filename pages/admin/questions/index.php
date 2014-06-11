@@ -45,7 +45,7 @@ var saveOrder = function() {
 				$friendlyType = str_replace(' ', '', $type);
 			?>			
 			<li>
-				<a href="<?php echo WPSQT_URL_MAIN; ?>&section=questions&subsection=<?php echo urlencode($_GET['subsection']); ?>&type=<?php echo $type; ?>" <?php if (isset($_GET['type']) && $type == $_GET['type']) { ?>  class="current"<?php } ?>><?php echo $type; ?> <span class="count">(<?php echo $question_counts[$friendlyType.'_count']; ?>)</span></a>
+				<a href="<?php echo WPSQT_URL_MAIN; ?>&section=questions&subsection=<?php echo urlencode($_GET['subsection']); ?>&type=<?php echo $type; ?>&id=<?php echo $_GET['id'];?>" <?php if (isset($_GET['type']) && $type == $_GET['type']) { ?>  class="current"<?php } ?>><?php echo $type; ?> <span class="count">(<?php echo $question_counts[$friendlyType.'_count']; ?>)</span></a>
 			</li>
 		<?php } ?>
 	</ul>

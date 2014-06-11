@@ -15,9 +15,9 @@ class Wpsqt_Page_Main_Question extends Wpsqt_Page {
 	 * Updates the order field for each question
 	 * 
 	 * @param $idOrder string csv with trailing ',' of question IDs
-	 * @param $quizID integer the ID of the quiz to update questions for
+	 * @param @deprecated $quizID integer the ID of the quiz to update questions for
 	 */
-	private function _updateQuestionOrder($idOrder, $quizId) {
+	private function _updateQuestionOrder($idOrder, $quizId=0) {
 		global $wpdb;
 		$idOrder = explode(',', $idOrder); array_pop($idOrder);
 		for ($i = 1; $i <= count($idOrder); $i++) {
@@ -37,7 +37,7 @@ class Wpsqt_Page_Main_Question extends Wpsqt_Page {
 		global $wpdb;
 
 		if (isset($_GET['order'])) {
-			$this->_updateQuestionOrder($_GET['order'], $_GET['id']);
+			$this->_updateQuestionOrder($_GET['order']);
 		}
 		
 		$questions = Wpsqt_System::getQuizQuestionTypes();		
@@ -63,8 +63,13 @@ class Wpsqt_Page_Main_Question extends Wpsqt_Page {
 		
 		
 		$itemsPerPage = get_option('wpsqt_number_of_items');
+		$sql_questions = "SELECT * FROM `".WPSQT_TABLE_QUESTIONS."` WHERE item_id = %d";
+		if (isset($_GET['type'])){
+			$sql_questions .= ' AND type = %s';
+		}
+		$sql_questions .= " ORDER BY `order` ASC";
 		$questions = $wpdb->get_results(
-							$wpdb->prepare("SELECT * FROM `".WPSQT_TABLE_QUESTIONS."` WHERE item_id = %d ORDER BY `order` ASC",array($_GET['id']) ),ARRAY_A
+							$wpdb->prepare($sql_questions,array($_GET['id'], $_GET['type']) ),ARRAY_A
 						);
 		$questions = apply_filters("wpsqt_list_questions",$questions);
 		$currentPage = Wpsqt_Core::getCurrentPageNumber();
