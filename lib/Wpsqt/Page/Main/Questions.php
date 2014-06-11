@@ -60,16 +60,18 @@ class Wpsqt_Page_Main_Question extends Wpsqt_Page {
 		// Finishes off the query for the question counts.
 		$sql .= implode(',',$questionCounts);		
 		$sql .= "FROM ".WPSQT_TABLE_QUESTIONS." WHERE item_id = ".$itemId;
-		
-		
 		$itemsPerPage = get_option('wpsqt_number_of_items');
+
 		$sql_questions = "SELECT * FROM `".WPSQT_TABLE_QUESTIONS."` WHERE item_id = %d";
-		if (isset($_GET['type'])){
+		$params = array();
+		$params[] = $_GET['id'];
+		if (isset($_GET['type']) && $_GET['type'] != 'all'){
 			$sql_questions .= ' AND type = %s';
+			$params[] = $_GET['type'];
 		}
 		$sql_questions .= " ORDER BY `order` ASC";
 		$questions = $wpdb->get_results(
-							$wpdb->prepare($sql_questions,array($_GET['id'], $_GET['type']) ),ARRAY_A
+							$wpdb->prepare($sql_questions,$params ),ARRAY_A
 						);
 		$questions = apply_filters("wpsqt_list_questions",$questions);
 		$currentPage = Wpsqt_Core::getCurrentPageNumber();
