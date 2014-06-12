@@ -40,7 +40,7 @@ class WpsqtHooksTest extends PHPUnit_Framework_TestCase {
 						  array(
 						  	"WPSQT","manage_options","wpsqt-menu",
 						  	"WPSQT","menu-top toplevel_page_wpsqt-menu",
-						    "toplevel_page_wpsqt-menu","http://iain.fubradev.vc.catn.com/wp-admin/images/generic.png"
+						    "toplevel_page_wpsqt-menu","dashicons-clipboard"
 						  ),
 						  array(
 						  	"Options","manage_options","wpsqt-menu-options","Options"
