@@ -64,6 +64,14 @@ Any further issues then feel free to create a thread on the <a href="http://word
 
 == ChangeLog ==
 
+= 2.14 =
+* Fixed results display for surveys
+* Include an option in the shortcode results for showing results as a chart
+* Change the quiz autoreview display
+* Fixed the save/resume quiz feature
+* Change the plugin icon in the control panel
+* Other minors bugs fixed
+
 = 2.13.2 =
 
 * Added the option to display question numbers for quizzes
