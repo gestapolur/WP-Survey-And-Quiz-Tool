@@ -167,7 +167,11 @@ class Wpsqt_Core {
 			&& ctype_digit($_SESSION['wpsqt']['item_id']) ) ?
 			$blog_id.'/'.$_SESSION['wpsqt']['current_type'].'-'.$_SESSION['wpsqt']['item_id'].'/' : '';
 
-		if ( file_exists(WPSQT_DIR.'pages/custom/'.$quizPath.$file) ){
+		$themeFile = get_template_directory() . '/wpsqt/' . $file;
+		
+		if ( file_exists($themeFile) ) {
+			return $themeFile;
+		} elseif ( file_exists(WPSQT_DIR.'pages/custom/'.$quizPath.$file) ){
 			return WPSQT_DIR.'pages/custom/'.$quizPath.$file;
 		} elseif (file_exists(WPSQT_DIR.'pages/custom/'.$blog_id.'/shared/'.$file)) {
 			return WPSQT_DIR.'pages/custom/'.$blog_id.'/shared/'.$file;
