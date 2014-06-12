@@ -468,9 +468,10 @@ class Wpsqt_Core {
 		ob_clean();
 		global $wpdb;
 		extract( shortcode_atts( array(
-					'name' => false
+					'name' => 'false',
+					'show_chart' => 'false',
 		), $atts) );
-		if ($name == false) {
+		if ($name == 'false') {
 			echo 'No survey name was supplied.';
 		} else {
 			echo 'Results for '.$name;
@@ -478,11 +479,16 @@ class Wpsqt_Core {
 			// Get the ID
 			$surveyId = $wpdb->get_row("SELECT `id` FROM `".WPSQT_TABLE_QUIZ_SURVEYS."` WHERE `name` = '".$name."'", ARRAY_A);
 			$surveyId = (int) $surveyId['id'];
-
-			// Just reuse the same page view that the admin thing uses
-			require_once WPSQT_DIR.'/lib/Wpsqt/Page.php';
-			require_once WPSQT_DIR.'/lib/Wpsqt/Page/Main/Results/Poll.php';
-			Wpsqt_Page_Main_Results_Poll::displayResults($surveyId);
+			if ($show_chart == 'false'){
+				// Just reuse the same page view that the admin thing uses
+				require_once WPSQT_DIR.'/lib/Wpsqt/Page.php';
+				require_once WPSQT_DIR.'/lib/Wpsqt/Page/Main/Results/Poll.php';
+				Wpsqt_Page_Main_Results_Poll::displayResults($surveyId);	
+			}else{
+				$result = $wpdb->get_row("SELECT * FROM `".WPSQT_TABLE_SURVEY_CACHE."` WHERE item_id = '".$surveyId."'", ARRAY_A);
+				$sections = unserialize($result['sections']);
+				require_once(WPSQT_DIR.'pages/admin/surveys/result.total.script.site.php');
+			}	
 		}
 		$contents = ob_get_contents();
 		ob_end_clean();

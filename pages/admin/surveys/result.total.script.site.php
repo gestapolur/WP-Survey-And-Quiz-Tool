@@ -60,7 +60,7 @@
 	<div class="wpsqt-survey-info">
 		<strong>Survey info</strong> 
 		<?php
-		$nOfParticipants = $wpdb->get_var("SELECT `total` FROM `".WPSQT_TABLE_SURVEY_CACHE."` WHERE `item_id` = '".$_SESSION['wpsqt']['item_id']."'");
+		$nOfParticipants = $wpdb->get_var("SELECT `total` FROM `".WPSQT_TABLE_SURVEY_CACHE."` WHERE `item_id` = '".$surveyId."'");
 		echo '<p>There has been '.$nOfParticipants.' participants</p>';
 		?>
 	</div>

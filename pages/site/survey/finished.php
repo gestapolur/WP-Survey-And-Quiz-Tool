@@ -18,8 +18,8 @@ $objTokens->setDefaultValues();
 			_e('Thank you for your time.', 'wp-survey-and-quiz-tool');
 		} ?>
 <?php } else if ($_SESSION['wpsqt'][$quizName]['details']['finish_display'] == 'Results') {
-	$id = (int) $_SESSION['wpsqt']['item_id'];
-	$result = $wpdb->get_row("SELECT * FROM `".WPSQT_TABLE_SURVEY_CACHE."` WHERE item_id = '".$id."'", ARRAY_A);
+	$surveyId = (int) $_SESSION['wpsqt']['item_id'];
+	$result = $wpdb->get_row("SELECT * FROM `".WPSQT_TABLE_SURVEY_CACHE."` WHERE item_id = '".$surveyId."'", ARRAY_A);
 	$sections = unserialize($result['sections']);
 	require_once(WPSQT_DIR.'pages/admin/surveys/result.total.script.site.php');
 } else {
