@@ -50,7 +50,7 @@ define( 'WPSQT_TABLE_QUIZ_STATE'   , $wpdb->get_blog_prefix().'wpsqt_quiz_state'
 define( 'WPSQT_URL_MAIN'             , admin_url('admin.php?page='.WPSQT_PAGE_MAIN) );
 define( 'WPSQT_URL_MAINENTANCE'      , admin_url('admin.php?page='.WPSQT_PAGE_MAINTENANCE) );
 define( 'WPSQT_CONTACT_EMAIL'        , 'support@catn.com' );
-define( 'WPSQT_VERSION'              , '2.13.1' );
+define( 'WPSQT_VERSION'              , '2.14' );
 define( 'WPSQT_DIR'                  , realpath(dirname(__FILE__)).'/') ;
 define( 'WPSQT_FILE'     , __FILE__ );
 
