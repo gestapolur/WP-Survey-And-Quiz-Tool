@@ -16,6 +16,7 @@
 			</ul>
 
 			<div class="tablenav-pages">
+				<a href="<?php echo WPSQT_URL_MAIN; ?>&section=results&subsection=survey&id=<?php echo urlencode($_GET['id']); ?>&wpsqt-download=<?php echo urlencode($_GET['id']); ?>">Export CSV</a>
 		   		<?php echo Wpsqt_Core::getPaginationLinks($currentPage, $numberOfPages); ?>
 			</div>
 
