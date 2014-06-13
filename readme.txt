@@ -3,9 +3,9 @@ Contributors: Fubra,olliea95
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=99WUGVV4HY5ZE&lc=GB&item_name=CATN%20Plugins&item_number=catn&currency_code=GBP&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: Quiz,test,exam,survey,results,email,quizzes,charts,google charts,wpsqt,tool,poll,polling,polls
 Requires at least: 3.1
-Tested up to: 3.4.1
+Tested up to: 3.9.1
 Text Domain: wp-survey-and-quiz-tool
-Stable tag: 2.13.1
+Stable tag: 2.14
 A highly customisable Quiz, Survey and Poll plugin to which allows for unlimited questions and sections.
 
 == Description ==
