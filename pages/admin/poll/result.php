@@ -9,7 +9,11 @@
 	<form action="" method="post">
 		<input type="submit" name="deleteall" value="Delete All Results" />
 	</form>
-	
+	<div class="tablenav">
+		<div class="tablenav-pages">
+			<a href="<?php echo WPSQT_URL_MAIN; ?>&section=results&subsection=quiz&id=<?php echo urlencode($_GET['id']); ?>&wpsqt-download=<?php echo urlencode($_GET['id']); ?>">Export CSV</a>
+		</div>
+	</div>
 	<?php if ( isset($message) ) { ?>
 	<div class="updated">
 		<strong><?php echo $message; ?></strong>
