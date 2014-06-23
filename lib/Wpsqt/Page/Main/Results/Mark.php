@@ -86,7 +86,7 @@
 			$ser = mysql_real_escape_string($ser);
 			$wpdb->query( 
 				$wpdb->prepare('UPDATE '.WPSQT_TABLE_RESULTS.' SET sections=%s,status=%s,score=%d,total=%d,percentage=%d,pass=%d WHERE id = %d', 
-							array( serialize($ser),$_POST['status'],$currentPoints,$totalPoints,$percentage,$pass_fail,$_GET['resultid']) ) 
+							array( $ser,$_POST['status'],$currentPoints,$totalPoints,$percentage,$pass_fail,$_GET['resultid']) ) 
 						);
 			$this->redirect(WPSQT_URL_MAIN."&section=results"."&subsection=quiz&id=".$_GET['id']."&marked=true");			
 		}
