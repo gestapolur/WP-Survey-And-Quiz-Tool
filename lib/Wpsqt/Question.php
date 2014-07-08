@@ -90,11 +90,11 @@ abstract class Wpsqt_Question {
 		if ( empty($this->_formView) ){
 			return "Someone has dun goof'd! No question form view!";
 		}
-		if ( !isset(self::$_called[$this::$_id]) ){
+		if ( !isset(self::$_called[$this->_id])){
 			ob_start();
 			extract($this->_questionVars);
 			require $this->_formView;
-			self::$_called[$this::$_id] = true;
+			self::$_called[$this->_id] = true;
 			return ob_get_clean();
 		}
 		

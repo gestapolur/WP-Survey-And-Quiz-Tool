@@ -3,4 +3,7 @@ lang/po
 *.sh
 Vagrantfile
 .vagrant
-scripts/*
+scripts/
+.DS_Store
+wp-survey-and-quiz.sublime-project
+wp-survey-and-quiz.sublime-workspace
