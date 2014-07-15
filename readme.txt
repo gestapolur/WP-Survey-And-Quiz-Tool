@@ -5,7 +5,7 @@ Tags: Quiz,test,exam,survey,results,email,quizzes,charts,google charts,wpsqt,too
 Requires at least: 3.1
 Tested up to: 3.9.1
 Text Domain: wp-survey-and-quiz-tool
-Stable tag: 2.14
+Stable tag: 2.14.1
 A highly customisable Quiz, Survey and Poll plugin to which allows for unlimited questions and sections.
 
 == Description ==
@@ -63,6 +63,12 @@ If you have upgraded from a version 1.x.x and nothing appears to be saving, plea
 Any further issues then feel free to create a thread on the <a href="http://wordpress.org/tags/wp-survey-and-quiz-tool?forum_id=10">forum</a>.
 
 == ChangeLog ==
+
+= 2.14.1 =
+* Fixed compatiblity issues with PHP 5.2
+* Fixing double serialization bug for quiz results
+* Added export poll to csv feature
+* Other minors bugs fixed
 
 = 2.14 =
 * Fixed results display for surveys
