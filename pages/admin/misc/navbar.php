@@ -59,7 +59,7 @@ if ( isset($_GET['id']) ){
 			<li style="padding-left: 30px;">Shortcode: <pre style="display: inline;">[wpsqt name="<?php echo $quizName; ?>" type="<?php echo $quizType; ?>"]</pre></li>
 		</ul>
 
-		<form action="<?php echo WPSQT_URL_MAIN; ?>&section=edit&subsection=<?php echo urlencode($_GET["subsection"]); ?>&id=<?php echo $_GET['id']; ?>" method="post">
+		<form action="<?php echo WPSQT_URL_MAIN; ?>&section=edit&subsection=<?php echo $subsection; ?>&id=<?php echo $_GET['id']; ?>" method="post">
 			<input type="submit" name="new-page" value="Insert Into New Page" class="button-secondary" style="float:right;" />
 			<input type="hidden" name="quiz-name" value="<?php echo $quizName; ?>" />
 		</form>

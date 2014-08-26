@@ -125,7 +125,7 @@ class Wpsqt_Mail {
 					&& $percentRight > 50 ){
 			$emailTrue = true;
 		}
-		
+			
 		if ( !isset($emailList) || empty($emailList) || $emailTrue === TRUE ){
 			$emailAddress = get_option('wpsqt_contact_email');
 			if ( !empty($_SESSION['wpsqt'][$quizName]['details']['notification_email'])  ){
@@ -141,6 +141,8 @@ class Wpsqt_Mail {
 			foreach( $emailList  as $emailAddress ){
 				wp_mail($emailAddress,$emailSubject,$emailMessage,$headers);
 			}	
+		}else{
+			wp_mail($emailAddress,$emailSubject,$emailMessage,$headers);
 		}
 	}
 	
