@@ -1,4 +1,3 @@
-<h3><?php echo $question['name']; ?></h3>
 
 <?php 
 $chartWidth = get_option('wpsqt_chart_width');
@@ -8,6 +7,8 @@ $chartTextSize = get_option('wpsqt_chart_text_size');
 $chartAbbreviations = get_option('wpsqt_chart_abbreviation');
 $chartBackgroundColour = get_option('wpsqt_chart_bg');
 $chartColour = get_option('wpsqt_chart_colour');
+
+
 if (!isset($chartWidth) || $chartWidth == NULL)
 	$chartWidth = 400;
 if (!isset($chartHeight) || $chartHeight == NULL)
@@ -20,24 +21,18 @@ if (!isset($chartBackgroundColour) || $chartBackgroundColour == NULL)
 	$chartBackgroundColour='FFFFFF';
 if (!isset($chartColour) || $chartColour == NULL)
 	$chartColour='FF0000';
-$chartSize = 'chs='.$chartWidth.'x'.$chartHeight;
-//$googleChartUrl = 'http://chart.apis.google.com/chart?cht=bvs&'.$chartSize.'&chxs=0,'.$chartTextColour.','.$chartTextSize.',0,lt,'.$chartTextColour.'|1,'.$chartTextColour.','.$chartTextSize.',1,lt,'.$chartTextColour.'&cht=p&chf=bg,s,'.get_option("wpsqt_chart_bg").'&chco='.get_option("wpsqt_chart_colour");
-$googleChartUrl = 'http://chart.apis.google.com/chart?cht=bvs&'.$chartSize.'&chxs=0,'.$chartTextColour.','.$chartTextSize.',0,lt,'.$chartTextColour.'|1,'.$chartTextColour.','.$chartTextSize.',1,lt,'.$chartTextColour.'&chf=bg,'.$chartBackgroundColour.'&chco='.$chartColour;
+
 if ( $question['type'] == "Multiple Choice" ||
    	$question['type'] == "Dropdown" ) {
-	//$googleChartUrl = 'http://chart.apis.google.com/chart?chs=400x185&cht=p';
 	$valueArray    = array();
 	$nameArray     = array();
+	$google_chart_data = array();
+	$google_chart_data[] = array('Answer', 'Count');
 	foreach ( $question['answers'] as $answer ) {
-   		$nameArray[] = $answer['text'];
-		$valueArray[] = $answer['count'];
+		$google_chart_data[] = array($answer['text'], $answer['count']);
    	}
-
-	$googleChartUrl .= '&chd=t:'.implode(',', $valueArray);
-	$googleChartUrl .= '&chl='.implode('|',$nameArray);
 ?>
-
-	<img src="<?php echo $googleChartUrl; ?>" alt="<?php echo $question['name']; ?>" />
+	<div id="chart_<?= $questonKey?>"></div>
 <?php 
 
 } else if ($question['type'] == "Free Text") {
@@ -62,35 +57,28 @@ if ( $question['type'] == "Multiple Choice" ||
 
 	}
 } else if ($question['type'] == "Likert") {
-	//$googleChartUrl = 'http://chart.apis.google.com/chart?&cht=bvs';
-	$valueArray    = array();
-	$nameArray     = array();
-	$maxValue = 0;
 	$numAnswers = count($question['answers']);
 	
 	// Populates data array
-	foreach ( $question['answers'] as $key => $answer ) {
-		$nameArray[] = $key;
-		$valueArray[] = $answer['count'];
-		// Gets the maximum value
-		if ($answer['count'] > $maxValue)
-			$maxValue = $answer['count'];
-	}
-	// Makes chart wider if its an agree/disagree question
+	$google_chart_data = array();
+	$google_chart_data[] = array('Answer', 'Count');
+
 	if (array_key_exists('Disagree', $question['answers'])) {
-		$googleChartUrl .= '&chbh=r,70,10';
-		$googleChartUrl .= '&chxt=x&chxl=0:|Strongly Disagree|Disagree|No Opinion|Agree|Strongly Agree'; // Sets labelling to x-axis only
+		$titles = array('Strongly Disagree', 'Disagree', 'No Opinion', 'Agree', 'Strongly Agree');
 	} else {
-		//$googleChartUrl .= '&chs=350x250';
-		$googleChartUrl .= '&chxt=x&chxl=0:|'.implode('|', $nameArray); // Sets labelling to x-axis only
+		$titles = array_keys($question['answers']);
 	}
-	$googleChartUrl .= '&chm=N,000000,0,,10|N,000000,1,,10|N,000000,2,,10'; // Adds the count above bars
-	$googleChartUrl .= '&chds=0,'.(++$maxValue); // Sets scaling to a little bit more than max value
-	$googleChartUrl .= '&chd=t:'.implode(',', $valueArray); // Chart data
+	$i = 0;
+	foreach ( $question['answers'] as $key => $answer ) {
+		$google_chart_data[] = array($titles[$i], $answer['count']);
+		$i++;
+	}
 ?>
-	<img src="<?php echo $googleChartUrl; ?>" alt="<?php echo $question['name']; ?>" />
+
+	<div id="chart_<?= $questonKey?>"></div>
 <?php
 } else if ($question['type'] == "Likert Matrix") {
+  		
   		if (isset($question['scale']) && $question['scale'] == 'disagree/agree') {
   			$wordScale = true;
   		} else {
@@ -104,38 +92,57 @@ if ( $question['type'] == "Multiple Choice" ||
 			unset($question['answers']['other']);
 		}
 
-  		foreach($question['answers'] as $optionkey => $matrixOption) {
-  			$gcUrl = $googleChartUrl;
-  			//$googleChartUrl = 'http://chart.apis.google.com/chart?&cht=bvs';
-			$valueArray    = array();
-			$nameArray     = array();
-			$maxValue = 0;
-			$numAnswers = count($question['answers']);
+		$google_chart_data = array();
 
-			foreach ($matrixOption as $key => $answer) {
-				$nameArray[] = $key;
-				$valueArray[] = $answer['count'];
-				// Gets the maximum value
-				if ($answer['count'] > $maxValue)
-					$maxValue = $answer['count'];
+		if ($wordScale == true){
+			$titles = array('Answer', 'Strongly Disagree', 'Disagree', 'No Opinion', 'Agree', 'Strongly Agree');
+		}else{
+			$titles = array('Answer', '1', '2', '3', '4', '5');
+		}
+		$google_chart_data[] = $titles;
+  		foreach($question['answers'] as $optionKey => $matrixOption) {
+			$row = array();
+			$row[] = $optionKey;
+			foreach ($matrixOption as $answer) {
+				$row[] = $answer['count'];
 			}
+			$google_chart_data[] = $row;
+		}
+?>
 
-			//$googleChartUrl .= '&chs=350x250';
-
-			if (isset($wordScale) && $wordScale == true) {
-				$gcUrl .= '&chxt=x&chxl=0:|Strongly Disagree|Disagree|No Opinion|Agree|Strongly Agree'; // Sets labelling to x-axis only and labels with numbers
-				$gcUrl .= '&chbh=r,70,10'; // Makes chart wider		
-			} else {
-				$gcUrl .= '&chxt=x&chxl=0:|'.implode('|', $nameArray); // Sets labelling to x-axis only and labels with numbers
-			}
-			$gcUrl .= '&chm=N,000000,0,,10|N,000000,1,,10|N,000000,2,,10'; // Adds the count above bars
-			$gcUrl .= '&chds=0,'.(++$maxValue); // Sets scaling to a little bit more than max value
-			$gcUrl .= '&chd=t:'.implode(',', $valueArray); // Chart data
-
-			echo '<h4>'.$optionkey.'</h4>';
-			?><img src="<?php echo $gcUrl; ?>" alt="<?php echo $question['name']; ?>" /><?php
-  		}
+			<div id="chart_<?= $questonKey?>"></div>
+<?php
   } else {
 		echo 'Something went really wrong, please report this bug to the GitHub Issues page. Here\'s a var dump which might make you feel better.<pre>'; var_dump($question); echo '</pre>';
   } 
+
+  $google_chart_data = json_encode($google_chart_data); 
 ?>
+
+<script>
+	// Load the Visualization API and the piechart package.
+	google.load('visualization', '1.0', {'packages':['corechart']});
+      
+     // Set a callback to run when the Google Visualization API is loaded.
+     google.setOnLoadCallback(drawChart<?=$questonKey?>);
+
+
+    // Callback that creates and populates a data table, 
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart<?=$questonKey?>() {
+    	console.info(<?= $google_chart_data ?>);
+		var data = google.visualization.arrayToDataTable(<?= $google_chart_data ?>);
+
+		var options = {
+		    title: '<?= $question['name'] ?>',
+		    width: '<?= $chartWidth ?>',
+        	height: '<?= $chartHeight ?>',
+        	hAxis:{ title:'Answers', showTextEvery:1 }
+		  };
+
+		var chart = new google.visualization.ColumnChart(document.getElementById('chart_<?= $questonKey?>'));
+
+		chart.draw(data, options);
+	}
+</script>
