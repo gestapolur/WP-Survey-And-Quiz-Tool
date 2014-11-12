@@ -7,7 +7,7 @@
 	<?php } ?>
 	<div id="icon-tools" class="icon32"></div>
 	<h2>
-		WP Survey And Quiz Tool - Create Poll
+		<?php _e('WP Survey And Quiz Tool - Create Poll', 'wp-survey-and-quiz-tool'); ?>
 	</h2>
 			
 	<?php require WPSQT_DIR.'pages/admin/misc/navbar.php'; ?>
@@ -27,13 +27,13 @@
 		<?php $objForm->display(); ?>
 				
 		<p class="submit">
-			<input class="button-primary" type="submit" name="Save" value="Save Poll" id="submitbutton" />
+			<input class="button-primary" type="submit" name=<?php _e('Save', 'wp-survey-and-quiz-tool'); ?> value=<?php _e('Save Poll', 'wp-survey-and-quiz-tool'); ?> id="submitbutton" />
 		</p>
 		
 	</form>
 	
 	<a name="template_tokens"></a>
-	<h3>Replacement Token</h3>
+	<h3><?php _e('Replacement Token', 'wp-survey-and-quiz-tool'); ?></h3>
 		
 	<?php echo $objTokens->getDescriptions(); ?>	
 	

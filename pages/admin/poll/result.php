@@ -2,12 +2,12 @@
 <div class="wrap">
 
 	<div id="icon-tools" class="icon32"></div>
-	<h2>WP Survey And Quiz Tool - Results</h2>
+	<h2><?php _e('WP Survey And Quiz Tool - Results', 'wp-survey-and-quiz-tool'); ?></h2>
 		
 	<?php require WPSQT_DIR.'pages/admin/misc/navbar.php'; ?>	
 
 	<form action="" method="post">
-		<input type="submit" name="deleteall" value="Delete All Results" />
+		<input type="submit" name="deleteall" value=<?php _e('Delete All Results', 'wp-survey-and-quiz-tool'); ?> />
 	</form>
 	<div class="tablenav">
 		<div class="tablenav-pages">

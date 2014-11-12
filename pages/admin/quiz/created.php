@@ -2,7 +2,7 @@
 
 	<div id="icon-tools" class="icon32"></div>
 	<h2>
-		WP Survey And Quiz Tool - Create Quiz
+		<?php _e('WP Survey And Quiz Tool - Create Quiz', 'wp-survey-and-quiz-tool'); ?>
 	</h2>
 	
-	<p>Good news the quiz #<?php echo $quizId; ?> has been created. Now all you need to do is add some sections and some questions and you're good to go.</p>
+	<p><?php printf(__('Good news the quiz %s has been created. Now all you need to do is add some sections and some questions and you're good to go.', 'wp-survey-and-quiz-tool'), $quizId); ?></p>

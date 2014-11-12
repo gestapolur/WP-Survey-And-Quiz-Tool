@@ -26,7 +26,7 @@ if ( !isset($rowCount) ){
 	<?php } ?>
 	
 	<?php if ( empty($sections) ){ ?>	
-		<div class="error">You need to add sections before adding questions. <a href="<?php echo WPSQT_URL_MAIN;?>&section=sections&subsection=<?php echo urlencode($_GET['subsection']);?>&id=<?php echo urlencode($_GET['id']); ?>">Click here to add sections</a>.</div>
+		<div class="error"><?php _e('You need to add sections before adding questions.', 'wp-survey-and-quiz-tool'); ?> <a href="<?php echo WPSQT_URL_MAIN;?>&section=sections&subsection=<?php echo urlencode($_GET['subsection']);?>&id=<?php echo urlencode($_GET['id']); ?>"><?php _e('Click here to add sections', 'wp-survey-and-quiz-tool'); ?></a>.</div>
 	<?php } ?>	
 	
 	
@@ -39,7 +39,7 @@ if ( !isset($rowCount) ){
 		<?php echo $subForm; ?>
 		
 		<p class="submit">
-			<input <?php if (empty($sections)){ ?> disabled="disabled"<?php }?> class="button-primary" type="submit" name="Save" value="Save Question" id="submitbutton" />
+			<input <?php if (empty($sections)){ ?> disabled="disabled"<?php }?> class="button-primary" type="submit" name=<?php _e('Save', 'wp-survey-and-quiz-tool'); ?> value=<?php _e('Save Question', 'wp-survey-and-quiz-tool'); ?> id="submitbutton" />
 		</p>
 		
 	</form>	

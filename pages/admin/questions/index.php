@@ -19,25 +19,25 @@ var saveOrder = function() {
 <div class="wrap">
 
 	<div id="icon-tools" class="icon32"></div>
-	<h2>WP Survey And Quiz Tool - Questions</h2>
+	<h2><?php _e('WP Survey And Quiz Tool - Questions', 'wp-survey-and-quiz-tool'); ?></h2>
 		
 	<?php require WPSQT_DIR.'pages/admin/misc/navbar.php'; ?>
 	
 	<?php if ( isset($_GET['new']) &&  $_GET['new'] == "true" ) { ?>
 	<div class="updated">
-		<strong>Question successfully added.</strong>
+		<strong><?php _e('Question successfully added.', 'wp-survey-and-quiz-tool'); ?></strong>
 	</div>
 	<?php } ?>
 	
 	<?php if ( isset($_GET['edit']) &&  $_GET['edit'] == "true" ) { ?>
 	<div class="updated">
-		<strong>Question successfully edited.</strong>
+		<strong><?php _e('Question successfully edited.', 'wp-survey-and-quiz-tool'); ?></strong>
 	</div>
 	<?php } ?>
 	
 	<?php if ( isset($_GET['delete']) &&  $_GET['delete'] == "true" ) { ?>
 	<div class="updated">
-		<strong>Question successfully deleted.</strong>
+		<strong><?php _e('Question successfully deleted.', 'wp-survey-and-quiz-tool'); ?></strong>
 	</div>
 	<?php } ?>
 	<ul class="subsubsub">
@@ -56,7 +56,7 @@ var saveOrder = function() {
 		<?php if ( isset($_GET['id']) ){ ?>
 		<div class="alignleft">
 			<a href="<?php echo WPSQT_URL_MAIN; ?>&section=questionadd&subsection=<?php esc_html_e($_GET['subsection'], 'wp-survey-and-quiz-tool'); ?>&id=<?php esc_html_e($_GET['id'], 'wp-survey-and-quiz-tool'); ?>" class="button-secondary" title="Add New Question">Add New Question</a>
-			<a href="#" title="Save Order" onclick="saveOrder();" class="button-secondary">Save Order</a>
+			<a href="#" title=<?php _e('Save Order', 'wp-survey-and-quiz-tool'); ?> onclick="saveOrder();" class="button-secondary"><?php _e('Save Order', 'wp-survey-and-quiz-tool'); ?></a>
 		</div>
 		<?php } ?>		
 		<div class="tablenav-pages">
@@ -67,22 +67,22 @@ var saveOrder = function() {
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Question</th>
-				<th>Type</th>
-				<th>Rate</th>
-				<th>Edit</th>
-				<th>Delete</th>
+				<th><?php _e('Question', 'wp-survey-and-quiz-tool'); ?></th>
+				<th><?php _e('Type', 'wp-survey-and-quiz-tool'); ?></th>
+				<th><?php _e('Rate', 'wp-survey-and-quiz-tool'); ?></th>
+				<th><?php _e('Edit', 'wp-survey-and-quiz-tool'); ?></th>
+				<th><?php _e('Delete', 'wp-survey-and-quiz-tool'); ?></th>
 				<th></th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
 				<th>ID</th>
-				<th>Question</th>
-				<th>Type</th>
-				<th>Rate</th>
-				<th>Edit</th>
-				<th>Delete</th>
+				<th><?php _e('Question', 'wp-survey-and-quiz-tool'); ?></th>
+				<th><?php _e('Type', 'wp-survey-and-quiz-tool'); ?></th>
+				<th><?php _e('Rate', 'wp-survey-and-quiz-tool'); ?></th>
+				<th><?php _e('Edit', 'wp-survey-and-quiz-tool'); ?></th>
+				<th><?php _e('Delete', 'wp-survey-and-quiz-tool'); ?></th>
 				<th></th>
 			</tr>
 		</tfoot>
@@ -145,7 +145,7 @@ var saveOrder = function() {
 		<?php if ( isset($_GET['id']) ){ ?>
 		<div class="alignleft">
 			<a href="<?php echo WPSQT_URL_MAIN; ?>&section=questionadd&subsection=<?php esc_html_e($_GET['subsection'], 'wp-survey-and-quiz-tool'); ?>&id=<?php esc_html_e($_GET['id'], 'wp-survey-and-quiz-tool'); ?>" class="button-secondary" title="Add New Question">Add New Question</a>
-			<a href="#" title="Save Order" onclick="saveOrder();" class="button-secondary">Save Order</a>
+			<a href="#" title=<?php _e('Save Order', 'wp-survey-and-quiz-tool'); ?> onclick="saveOrder();" class="button-secondary"><?php _e('Save Order', 'wp-survey-and-quiz-tool'); ?></a>
 		</div>
 		<?php } ?>		
 		<div class="tablenav-pages">

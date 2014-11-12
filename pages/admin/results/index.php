@@ -1,6 +1,6 @@
 <div class="wrap">
 	<div id="icon-tools" class="icon32"></div>
-	<h2>WP Survey And Quiz Tool - Results</h2>
+	<h2><?php _e('WP Survey And Quiz Tool - Result', 'wp-survey-and-quiz-tool'); ?></h2>
 		
 	<?php require WPSQT_DIR.'pages/admin/misc/navbar.php'; ?>	
 	
@@ -36,7 +36,7 @@
 			</ul>
 			
 			<div class="tablenav-pages">
-				<a href="<?php echo WPSQT_URL_MAIN; ?>&section=results&subsection=quiz&id=<?php echo urlencode($_GET['id']); ?>&wpsqt-download=<?php echo urlencode($_GET['id']); ?>">Export CSV</a>
+				<a href="<?php echo WPSQT_URL_MAIN; ?>&section=results&subsection=quiz&id=<?php echo urlencode($_GET['id']); ?>&wpsqt-download=<?php echo urlencode($_GET['id']); ?>"><?php _e('Export CSV', 'wp-survey-and-quiz-tool'); ?></a>
 		   		<?php echo Wpsqt_Core::getPaginationLinks($currentPage, $numberOfPages); ?>	
 		   	</div>
 		</div>

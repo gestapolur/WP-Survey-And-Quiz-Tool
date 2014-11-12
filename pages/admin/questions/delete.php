@@ -9,7 +9,7 @@
 	<form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
 		
 		<input type="hidden" name="wpsqt_nonce" value="<?php echo WPSQT_NONCE_CURRENT; ?>" />
-		<p style="text-align: center;">Are you sure you want to delete the "<em><?php echo stripslashes($question['name']); ?></em>" question?</p>
+		<p style="text-align: center;"><?php printf(__('Are you sure you want to delete the <em> %s </em> question?', 'wp-survey-and-quiz-tool'), stripslashes($question['name'])); ?></p>
 		<p style="text-align: center;"><input type="submit" name="confirm" value="Yes" class='button-secondary' /></p>
 	</form>
 	

@@ -3,15 +3,15 @@
 	<div id="icon-tools" class="icon32"></div>
 	<h2>
 		WP Survey And Quiz Tool - Survey/Quizzes
-		<a href="<?php echo WPSQT_URL_MAIN; ?>&section=addnew&subsection=quiz" class="button add-new-h2">Add New Quiz</a>
-		<a href="<?php echo WPSQT_URL_MAIN; ?>&section=addnew&subsection=survey" class="button add-new-h2">Add New Survey</a>
-		<a href="<?php echo WPSQT_URL_MAIN; ?>&section=addnew&subsection=poll" class="button add-new-h2">Add New Poll</a>
+		<a href="<?php echo WPSQT_URL_MAIN; ?>&section=addnew&subsection=quiz" class="button add-new-h2"><?php _e('Add New Quiz', 'wp-survey-and-quiz-tool'); ?></a>
+		<a href="<?php echo WPSQT_URL_MAIN; ?>&section=addnew&subsection=survey" class="button add-new-h2"><?php _e('Add New Survey', 'wp-survey-and-quiz-tool'); ?></a>
+		<a href="<?php echo WPSQT_URL_MAIN; ?>&section=addnew&subsection=poll" class="button add-new-h2"><?php _e('Add New Poll', 'wp-survey-and-quiz-tool'); ?></a>
 	</h2>
 
 	<?php if ( isset($_GET['delete']) && $_GET['delete'] == "true" ){
 		?>
 	<div class="updated">
-		<strong>Quiz/Survey successfully deleted!</strong>
+		<strong><?php _e('Quiz/Survey successfully deleted!', 'wp-survey-and-quiz-tool'); ?></strong>
 	</div>
 		<?php
 	}?>
@@ -22,16 +22,16 @@
 
 			<ul class="subsubsub">
 				<li>
-					<a href="<?php echo WPSQT_URL_MAIN; ?>" <?php if ($type == "") { ?>  class="current"<?php } ?> id="all_link">All <span class="count">(<?php echo $totalNo; ?>)</span></a> |
+					<a href="<?php echo WPSQT_URL_MAIN; ?>" <?php if ($type == "") { ?>  class="current"<?php } ?> id="all_link"><?php _e('All', 'wp-survey-and-quiz-tool'); ?> <span class="count">(<?php echo $totalNo; ?>)</span></a> |
 				</li>
 				<li>
-					<a href="<?php echo WPSQT_URL_MAIN; ?>&type=quiz" <?php if ($type =="quiz") { ?>  class="current"<?php } ?> id="quiz_link">Quizzes <span class="count">(<?php echo $quizNo; ?>)</span></a> |
+					<a href="<?php echo WPSQT_URL_MAIN; ?>&type=quiz" <?php if ($type =="quiz") { ?>  class="current"<?php } ?> id="quiz_link"><?php _e('Quizzes', 'wp-survey-and-quiz-tool'); ?> <span class="count">(<?php echo $quizNo; ?>)</span></a> |
 				</li>
 				<li>
-					<a href="<?php echo WPSQT_URL_MAIN; ?>&type=survey" <?php if ($type == "survey") { ?>  class="current"<?php } ?>  id="survey_link">Surveys <span class="count">(<?php echo $surveyNo; ?>)</span></a> |
+					<a href="<?php echo WPSQT_URL_MAIN; ?>&type=survey" <?php if ($type == "survey") { ?>  class="current"<?php } ?>  id="survey_link"><?php _e('Surveys', 'wp-survey-and-quiz-tool'); ?> <span class="count">(<?php echo $surveyNo; ?>)</span></a> |
 				</li>
 				<li>
-					<a href="<?php echo WPSQT_URL_MAIN; ?>&type=poll" <?php if ($type == "poll") { ?>  class="current"<?php } ?>  id="survey_link">Polls <span class="count">(<?php echo $pollNo; ?>)</span></a>
+					<a href="<?php echo WPSQT_URL_MAIN; ?>&type=poll" <?php if ($type == "poll") { ?>  class="current"<?php } ?>  id="survey_link"><?php _e('Polls', 'wp-survey-and-quiz-tool'); ?> <span class="count">(<?php echo $pollNo; ?>)</span></a>
 				</li>
 			</ul>
 			<div class="tablenav-pages">

@@ -6,7 +6,7 @@ if ( !isset($rowCount) ){
 <div class="wrap">
 
 	<div id="icon-tools" class="icon32"></div>
-	<h2>WP Survey And Quiz Tool - Poll Questions</h2>
+	<h2><?php _e('WP Survey And Quiz Tool - Poll Questions', 'wp-survey-and-quiz-tool'); ?></h2>
 		
 	<?php require WPSQT_DIR.'pages/admin/misc/navbar.php'; ?>
 	
@@ -35,7 +35,7 @@ if ( !isset($rowCount) ){
 		<?php echo $subForm; ?>
 		
 		<p class="submit">
-			<input <?php if (empty($sections)){ ?> disabled="disabled"<?php }?> class="button-primary" type="submit" name="Save" value="Save Question" id="submitbutton" />
+			<input <?php if (empty($sections)){ ?> disabled="disabled"<?php }?> class="button-primary" type="submit" name=<?php _e('Save', 'wp-survey-and-quiz-tool'); ?> value=<?php _e('Save Question', 'wp-survey-and-quiz-tool'); ?> id="submitbutton" />
 		</p>
 		
 	</form>	
